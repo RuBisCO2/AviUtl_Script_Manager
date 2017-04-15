@@ -1,0 +1,95 @@
+<Window x:Class="AviUtlScriptManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AviUtlScriptManager" Height="500" Width="720" Closing="Window_Closing"
+>
+	<Window.Resources>
+        <DataTemplate x:Key="dtFiles">
+            <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Foreground="Gray"
+                           Text="Name"></TextBlock>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="{Binding FileName}"></TextBlock>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Foreground="Gray"
+                           Margin="0,0,5,0"
+                           Text="Path"></TextBlock>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding FilePath}"></TextBlock>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="190"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+		<TextBox Margin="10,10,10,10" Grid.Row="0" Grid.Column="0" Name="txtFilter" TextChanged="txtFilter_TextChanged" />
+		<ListView Margin="10,0,10,10" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Name="lvScripts" >
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}" />
+					<GridViewColumn Header="Type" Width="40" DisplayMemberBinding="{Binding Type}" />
+					<GridViewColumn Header="Path" Width="120" DisplayMemberBinding="{Binding Path}" />
+					<GridViewColumn Header="Track0" Width="50" DisplayMemberBinding="{Binding Track0}" />
+					<GridViewColumn Header="Track1" Width="50" DisplayMemberBinding="{Binding Track1}" />
+					<GridViewColumn Header="Track2" Width="50" DisplayMemberBinding="{Binding Track2}" />
+					<GridViewColumn Header="Track3" Width="50" DisplayMemberBinding="{Binding Track3}" />
+					<GridViewColumn Header="Check0" Width="30" DisplayMemberBinding="{Binding Check0}" />
+					<GridViewColumn Header="TypeNum" Width="30" DisplayMemberBinding="{Binding TypeNum}" />
+					<GridViewColumn Header="Filter" Width="30" DisplayMemberBinding="{Binding Filter}" />
+					<GridViewColumn Header="Param" Width="120" DisplayMemberBinding="{Binding Param}" />
+				</GridView>
+			</ListView.View>
+			<ListView.ItemContainerStyle>
+				<Style TargetType="ListViewItem">
+					<EventSetter Event="PreviewMouseLeftButtonDown" Handler="List_PreviewMouseLeftButtonDown" />
+				</Style>
+			</ListView.ItemContainerStyle>
+		</ListView>
+		<Button Grid.Row="0" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Width="100" Height="20" Margin="10,10,10,10" Click="AddButton_Click" />
+		<Button Grid.Row="0" Grid.Column="1" Content="Remove" HorizontalAlignment="Center" Width="100" Height="20" Margin="10,10,10,10" Click="RemoveButton_Click" />
+		<Button Grid.Row="0" Grid.Column="1" Content="Clear" HorizontalAlignment="Right" Width="100" Height="20" Margin="10,10,10,10" Click="ClearButton_Click" />
+		<ListView Margin="10,0,10,0" Grid.Row="1" Grid.Column="1" Name="lvClipBoard" >
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}" />
+					<GridViewColumn Header="Type" Width="40" DisplayMemberBinding="{Binding Type}" />
+					<GridViewColumn Header="Path" Width="120" DisplayMemberBinding="{Binding Path}" />
+					<GridViewColumn Header="Track0" Width="50" DisplayMemberBinding="{Binding Track0}" />
+					<GridViewColumn Header="Track1" Width="50" DisplayMemberBinding="{Binding Track1}" />
+					<GridViewColumn Header="Track2" Width="50" DisplayMemberBinding="{Binding Track2}" />
+					<GridViewColumn Header="Track3" Width="50" DisplayMemberBinding="{Binding Track3}" />
+					<GridViewColumn Header="Check0" Width="30" DisplayMemberBinding="{Binding Check0}" />
+					<GridViewColumn Header="TypeNum" Width="30" DisplayMemberBinding="{Binding TypeNum}" />
+					<GridViewColumn Header="Filter" Width="30" DisplayMemberBinding="{Binding Filter}" />
+					<GridViewColumn Header="Param" Width="120" DisplayMemberBinding="{Binding Param}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+		<Button Grid.Row="2" Grid.Column="1" Content="Create" HorizontalAlignment="Left" Width="100" Height="20" Margin="10,10,10,10" Click="CreateButton_Click" />
+		<Button Grid.Row="2" Grid.Column="1" Content="Remove" HorizontalAlignment="Center" Width="100" Height="20" Margin="10,10,10,10" Click="BRemoveButton_Click" />
+		<Button Grid.Row="2" Grid.Column="1" Content="Clear" HorizontalAlignment="Right" Width="100" Height="20" Margin="10,10,10,10" Click="BClearButton_Click" />
+		<ListBox Name="TempDragSrc" Margin="10,0,10,10" Grid.Row="3" Grid.Column="1" ItemTemplate="{StaticResource dtFiles}">
+        </ListBox>
+	</Grid>
+</Window>
